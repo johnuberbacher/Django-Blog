@@ -1,0 +1,16 @@
+{% extends 'header.html' %}
+{% block title %}Add New Post{% endblock %}
+{% block content %}
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-12 my-3 mx-auto" style="max-width: 768px;">
+      <div class="article-card">
+        <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Post</button>
+        </div>
+      </div>
+  </div>
+</main>
+{% endblock %}

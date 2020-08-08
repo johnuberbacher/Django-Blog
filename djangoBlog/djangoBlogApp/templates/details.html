@@ -1,0 +1,28 @@
+{% extends 'header.html' %}
+{% block title %}{{ post.title }} | {{post.title_tag}}{% endblock %}
+{% block content %}
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-8 my-3">
+      <div class="article-card">
+        <h1>{{ post.title }}</h1>
+        <div class="author">
+          By {{ post.author }} - 01/01/2015
+          </div>
+        <div class="widget-img" style="background: url(https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);"></div>
+        <p>
+          {{ post.body }}
+        </p>
+        <div class="references">
+          <a href="#">Neque egestas congue quisque egestas diam in arcu cursus euismod. </a>
+            <a href="#">Neque egestas congue quisque egestas diam in arcu cursus euismod. </a>
+              <a href="#">Neque egestas congue quisque egestas diam in arcu cursus euismod. </a>
+          </div>
+          <a href="{% url 'home' %}">Return Home</a>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 my-3 sticky-top">
+        {% include "widget-roll.html" %}
+      </div>
+    </div>
+  {% endblock %}
