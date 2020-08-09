@@ -19,9 +19,12 @@
 
     <style>
       body {
-        background: #f2f2f2;
+        background: #fafafa;
         color: #444444;
         font-family: 'Open Sans';
+      }
+      .shadow {
+        box-shadow: 0 .05rem 0.75rem rgba(0,0,0,.05)!important;
       }
       a {
       color: #020202;
@@ -39,21 +42,19 @@
       }
       @media(min-width: 992px) {
         .article-card {
-          padding: 2.5rem;
+          padding: 2rem 2.5rem;
           background: white;
         }
       }
       @media(min-width: 1200px) {
         .article-card {
-          padding: 3.5rem;
+          padding: 2rem 3.5rem;
           background: white;
         }
       }
-      .article-card .article-img {
+      .article-img {
         position: relative;
         padding-bottom: 50%;
-        margin-top: 1rem;
-        margin-bottom: 1.5rem;
          background-size: cover!important;
          background-repeat: no-repeat!important;
          background-position: center 40%!important;
@@ -77,7 +78,7 @@
         align-items: center;
         justify-content: space-between;
         color: #3d3d3d;
-        margin: 0.75rem 0 0.5rem 0;
+        margin: 0.75rem 0 0.75rem 0;
         font-size: 0.75rem;
       }
       .article-card .widget-meta i {
@@ -94,39 +95,39 @@
       .widget-card .widget-title {
         font-weight: bold;
       }
-      .article-card .article-edit-post-btn,
+      .article-edit-post-btn,
       .widget-card .widget-edit-post-btn {
         z-index: 2;
         position: absolute;
         top: 0.5rem;
         right: 0.5rem;
         background: rgba(0,0,0,0.5);
-        color: white;
+        color: white!important;
         padding: 0.33rem 0.66rem;
         font-weight: bold;
         border-radius: 0.25rem;
         font-size: 0.75rem;
         transition: 0.3s background;
       }
-      .article-card .article-edit-post-btn:hover,
+      .article-edit-post-btn:hover,
       .widget-card .widget-edit-post-btn:hover {
         background: var(--primary);
       }
-      .article-card .article-delete-post-btn,
+      .article-delete-post-btn,
       .widget-card .widget-delete-post-btn {
         z-index: 2;
         position: absolute;
         top: 0.5rem;
         left: 0.5rem;
         background: var(--danger);
-        color: white;
+        color: white!important;
         padding: 0.33rem 0.66rem;
         font-weight: bold;
         border-radius: 0.25rem;
         font-size: 0.75rem;
         transition: 0.3s background;
       }
-      .article-card .article-delete-post-btn:hover
+      .article-delete-post-btn:hover
       .widget-card .widget-delete-post-btn:hover {
         background: var(--danger);
       }
@@ -164,8 +165,20 @@
         letter-spacing: -1px;
         font-size: 0.9rem;
         padding: calc(1rem + 3px) 0.75rem 1rem 0.75rem;
+        border-bottom: 3px solid transparent;
       }
-      .navbar.navbar-global .nav-item.active .nav-link {
+      .navbar.navbar-global .dropdown-item {
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        font-size: 0.9rem;
+        padding: 0.5 0.75rem 0.5 0.75rem;
+      }
+      .dropdown-menu {
+        top: 90%;
+      }
+      .navbar.navbar-global .nav-item.active .nav-link,
+      .navbar.navbar-global .nav-item .nav-link.active {
         border-bottom: 3px solid var(--primary);
       }
       .navbar.navbar-global .search-button {
@@ -186,7 +199,7 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-global navbar-expand-md navbar-light bg-white mb-4 flex-column p-0 sticky-top">
+    <nav class="navbar navbar-global navbar-expand-md navbar-light bg-white mb-4 flex-column p-0 sticky-top shadow">
       <div class="pre-navbar bg-dark w-100">
         Test
       </div>
@@ -204,24 +217,42 @@
   <div class="container px-3">
     <div class="w-100 border-top border-light">
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+              <li class="nav-item {% if request.get_full_path == "/" %} active {% endif %}">
+                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+              </li>
+
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          {% else %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Register</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'add_post' %}">Add Post</a>
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">Entertainment</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a class="nav-link" href="#">Business</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Lifestyle</a>
+          </li>
+          {% if user.is_authenticated %}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <a class="nav-link dropdown-toggle {% if request.get_full_path == "/add_post/" %} active {% endif %}" href="#" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+            <div class="dropdown-menu" aria-labelledby="adminDropdown">
+              <a class="dropdown-item" href="{% url 'add_post' %}">Create New Post</a>
             </div>
           </li>
+          {% endif %}
         </ul>
         <form class="form-inline position-relative my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -231,7 +262,9 @@
     </div>
   </div>
 </nav>
-
 {% block content %}
-
 {% endblock %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script></body>
+</html>
