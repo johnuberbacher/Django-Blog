@@ -1,14 +1,14 @@
 {% extends 'header.html' %}
-{% block title %}Add New Post{% endblock %}
+{% block title %}Delete Post{% endblock %}
 {% block content %}
 <main role="main" class="container">
   <div class="row">
     <div class="col-12 my-3 mx-auto" style="max-width: 768px;">
       <div class="article-card">
+        <h3>Delete: {{ post.title }}</h3>
         <form method="POST">
         {% csrf_token %}
-        {{ form }}
-        <button class="btn btn-primary ">Post</button>
+        <button class="btn btn-primary">Delete Post</button>
         </div>
       </div>
   </div>

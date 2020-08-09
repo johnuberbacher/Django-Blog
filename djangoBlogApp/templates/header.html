@@ -50,6 +50,7 @@
         }
       }
       .article-card .article-img {
+        position: relative;
         padding-bottom: 50%;
         margin-top: 1rem;
         margin-bottom: 1.5rem;
@@ -73,11 +74,17 @@
       .article-card .widget-meta {
         display: flex;
         flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         color: #3d3d3d;
         margin: 0.75rem 0 0.5rem 0;
         font-size: 0.75rem;
       }
+      .article-card .widget-meta i {
+        font-size: 0.8rem;
+      }
       .widget-card {
+        position: relative;
         background: white;
         margin-bottom: 1.5rem;
       }
@@ -86,6 +93,42 @@
       }
       .widget-card .widget-title {
         font-weight: bold;
+      }
+      .article-card .article-edit-post-btn,
+      .widget-card .widget-edit-post-btn {
+        z-index: 2;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        padding: 0.33rem 0.66rem;
+        font-weight: bold;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+        transition: 0.3s background;
+      }
+      .article-card .article-edit-post-btn:hover,
+      .widget-card .widget-edit-post-btn:hover {
+        background: var(--primary);
+      }
+      .article-card .article-delete-post-btn,
+      .widget-card .widget-delete-post-btn {
+        z-index: 2;
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        background: var(--danger);
+        color: white;
+        padding: 0.33rem 0.66rem;
+        font-weight: bold;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+        transition: 0.3s background;
+      }
+      .article-card .article-delete-post-btn:hover
+      .widget-card .widget-delete-post-btn:hover {
+        background: var(--danger);
       }
       .widget-card .widget-date {
         font-size: 14px;
@@ -148,7 +191,7 @@
         Test
       </div>
       <div class="container px-3">
-      <a class="navbar-brand py-3 font-weight-bold" style="font-size: 2rem; letter-spacing: -0.5px;" href="#">PLACEHOLDER<div style="text-transform: uppercase; color: var(--secondary); font-size: 1rem; font-weight: normal!important;">
+      <a class="navbar-brand py-3 font-weight-bold" href="{% url 'home' %}" style="font-size: 2rem; letter-spacing: -0.5px;" href="#">PLACEHOLDER<div style="text-transform: uppercase; color: var(--secondary); font-size: 1rem; font-weight: normal!important;">
         Placeholder Tagline
       </div></a>
       <div class="w-100 bg-light p-4 ml-5 d-none d-md-flex text-center align-items-center justify-content-center font-weight-bold small" style="max-width: 500px; min-height: 70px;">

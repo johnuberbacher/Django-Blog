@@ -1,5 +1,5 @@
 {% extends 'header.html' %}
-{% block title %}Add New Post{% endblock %}
+{% block title %}Update Post{% endblock %}
 {% block content %}
 <main role="main" class="container">
   <div class="row">
@@ -8,7 +8,7 @@
         <form method="POST">
         {% csrf_token %}
         {{ form }}
-        <button class="btn btn-primary ">Post</button>
+        <button class="btn btn-primary">Update</button>
         </div>
       </div>
   </div>
