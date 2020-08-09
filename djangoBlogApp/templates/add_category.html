@@ -1,5 +1,5 @@
 {% extends 'header.html' %}
-{% block title %}Add New Post{% endblock %}
+{% block title %}Add New Category{% endblock %}
 {% block content %}
 
   {% if user.is_authenticated %}
@@ -10,7 +10,7 @@
               <form method="POST">
               {% csrf_token %}
               {{ form }}
-              <button class="btn btn-primary ">Post</button>
+              <button class="btn btn-primary ">Save Category</button>
               </div>
             </div>
         </div>

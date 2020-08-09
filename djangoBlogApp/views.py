@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
+from .models import Category
 from .forms import PostForm, UpdatePostForm
 from django.urls import reverse_lazy
 
@@ -33,3 +34,8 @@ class PostWidgetRollView(ListView):
     model = Post
     template_name = 'widget_roll.html'
     ordering = ['-id']
+
+class AddCategoryView(CreateView):
+    model = Category
+    template_name = 'add_category.html'
+    fields = '__all__'

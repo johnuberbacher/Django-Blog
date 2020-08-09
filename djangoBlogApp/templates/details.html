@@ -5,6 +5,7 @@
   <div class="row">
     <div class="col-12 col-md-7 col-lg-8 my-3">
       <div class="article-card">
+        <a href="#" class="badge badge-primary">{{ post.category }}</a>
         <h1>{{ post.title }}</h1>
         <div class="widget-meta">
           <div class="d-flex flex-row">
@@ -24,8 +25,8 @@
       </div>
       <div class="article-img" style="background: url(https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
         {% if user.is_authenticated %}
-          <a class="article-delete-post-btn" href="{% url 'delete_post' post.pk %}"><i class="fas fa-times"></i></a>
-          <a class="article-edit-post-btn" href="{% url 'update_post' post.pk %}">Edit Post</a>
+          <a class="btn btn-danger article-delete-post-btn" href="{% url 'delete_post' post.pk %}"><i class="fas fa-times"></i></a>
+          <a class="btn btn-primary article-edit-post-btn" href="{% url 'update_post' post.pk %}">Edit Post</a>
         {% endif %}
       </div>
       <div class="article-card">
@@ -39,7 +40,7 @@
               <a href="#">Neque egestas congue quisque egestas diam in arcu cursus euismod. </a>
           </div>
         </div>
-        <a class="my-3 d-inline-block small" href="{% url 'home' %}">Return Home&nbsp;&nbsp;<i class="fas fa-chevron-right small"></i></a>
+        <a class="mt-4 mb-2 d-inline-block small" href="{% url 'home' %}">Return Home&nbsp;&nbsp;<i class="fas fa-chevron-right small"></i></a>
       </div>
       <div class="col-12 col-md-5 col-lg-4 my-3">
         {% include "widget_roll.html" %}

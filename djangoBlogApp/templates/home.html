@@ -39,20 +39,6 @@
   font-weight: bold;
   line-height: 1.15;
 }
-.spotlight-bg-img .spotlight-category {
-  color: white;
-  display: inline-block;
-  border: 1px solid var(--primary);
-  background: var(--primary);
-  padding: 0.25rem 0.75rem;
-  margin-bottom: 0.66rem;
-  font-size: 0.66rem;
-}
-.spotlight-bg-img .spotlight-category:hover {
-  color: white;
-  border: 1px solid var(--primary);
-  background: transparent;
-}
 </style>
 <div class="container mb-3">
   <div class="d-flex flex-column flex-md-row align-items-start align-items-center">
@@ -65,56 +51,9 @@
   </div>
 </div>
 <main role="main" class="container">
-  <div class="row  align-items-stretch" style="margin: 0 -0.25rem;">
-    <div class="col-12 col-lg-6 px-1 mt-1">
-      <div class="spotlight-bg-img h-100">
-        <div class="overlay"></div>
-          <div class="spotlight-body">
-            <a href="#" class="spotlight-category">
-              Business
-            </a>
-            <div class="spotlight-title">Vitae auctor eu augue ut lectus arcu bibendum at varius.</div>
-          </div>
-        </div>
-      </div>
-        <div class="col-12 col-lg-6 px-1 mt-1">
-          <div class="row" style="margin: 0 -0.25rem;">
-            <div class="col-12 px-1">
-                <div class="spotlight-bg-img">
-                  <div class="overlay"></div>
-                  <div class="spotlight-body">
-                    <a href="#" class="spotlight-category">
-                      Business
-                    </a>
-                      <div class="spotlight-title">Vitae auctor eu augue ut lectus arcu bibendum at varius.</div>
-                    </div>
-                  </div>
-              </div>
-              <div class="col-12 col-lg-6 px-1 mt-2">
-                  <div class="spotlight-bg-img">
-                    <div class="overlay"></div>
-                    <div class="spotlight-body">
-                      <a href="#" class="spotlight-category">
-                        Business
-                      </a>
-                        <div class="spotlight-title">Vitae auctor eu augue ut lectus arcu bibendum at varius.</div>
-                      </div>
-                    </div>
-                </div>
-              <div class="col-12 col-lg-6 px-1 mt-2">
-                  <div class="spotlight-bg-img">
-                    <div class="overlay"></div>
-                    <div class="spotlight-body">
-                      <a href="#" class="spotlight-category">
-                        Business
-                      </a>
-                        <div class="spotlight-title">Vitae auctor eu augue ut lectus arcu bibendum at varius.</div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-  </div>
+  {% block trending %}
+    {% include "trending.html" %}
+  {% endblock %}
   <div class="row mt-2">
     <div class="col-12 col-md-6 col-lg-8 my-3">
       <div class="article-card">

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="{% block meta_description %}My Meta Desription{% endblock %}">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.1.1">
     <title>{% block title %}My Blog{% endblock %}</title>
@@ -31,7 +31,10 @@
         cursor: pointer;
         text-decoration: none;
       }
-      a:hover, a:visited {
+      a:not(.badge):hover,
+      a:not(.btn):hover,
+      a:not(.badge):visited,
+      a:not(.btn):visited, {
           text-decoration: none;
           color: #2d93ff;
           text-decoration: none;
@@ -95,41 +98,25 @@
       .widget-card .widget-title {
         font-weight: bold;
       }
+
+      .article-delete-post-btn,
+      .widget-card .widget-delete-post-btn,
       .article-edit-post-btn,
       .widget-card .widget-edit-post-btn {
         z-index: 2;
         position: absolute;
         top: 0.5rem;
+        left: auto;
         right: 0.5rem;
-        background: rgba(0,0,0,0.5);
-        color: white!important;
         padding: 0.33rem 0.66rem;
         font-weight: bold;
         border-radius: 0.25rem;
         font-size: 0.75rem;
-        transition: 0.3s background;
-      }
-      .article-edit-post-btn:hover,
-      .widget-card .widget-edit-post-btn:hover {
-        background: var(--primary);
       }
       .article-delete-post-btn,
       .widget-card .widget-delete-post-btn {
-        z-index: 2;
-        position: absolute;
-        top: 0.5rem;
         left: 0.5rem;
-        background: var(--danger);
-        color: white!important;
-        padding: 0.33rem 0.66rem;
-        font-weight: bold;
-        border-radius: 0.25rem;
-        font-size: 0.75rem;
-        transition: 0.3s background;
-      }
-      .article-delete-post-btn:hover
-      .widget-card .widget-delete-post-btn:hover {
-        background: var(--danger);
+        right: auto;
       }
       .widget-card .widget-date {
         font-size: 14px;
@@ -196,6 +183,12 @@
         align-items: center;
         justify-content: center;
       }
+      .badge {
+        padding: 0.35rem 0.75rem;
+        margin-bottom: 1rem;
+        font-size: 0.66rem;
+        border-radius: 0;
+      }
     </style>
   </head>
   <body>
@@ -204,67 +197,70 @@
         Test
       </div>
       <div class="container px-3">
-      <a class="navbar-brand py-3 font-weight-bold" href="{% url 'home' %}" style="font-size: 2rem; letter-spacing: -0.5px;" href="#">PLACEHOLDER<div style="text-transform: uppercase; color: var(--secondary); font-size: 1rem; font-weight: normal!important;">
-        Placeholder Tagline
-      </div></a>
-      <div class="w-100 bg-light p-4 ml-5 d-none d-md-flex text-center align-items-center justify-content-center font-weight-bold small" style="max-width: 500px; min-height: 70px;">
-        AD
+        <a class="navbar-brand py-3 font-weight-bold" href="{% url 'home' %}" style="font-size: 2rem; letter-spacing: -0.5px;" href="#">
+          PLACEHOLDER
+          <div style="text-transform: uppercase; color: var(--secondary); font-size: 1rem; font-weight: normal!important;">
+            Placeholder Tagline
+          </div>
+        </a>
+        <div class="w-100 bg-light p-4 ml-5 d-none d-md-flex text-center align-items-center justify-content-center font-weight-bold small" style="max-width: 500px; min-height: 70px;">
+          AD
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
       </div>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      </div>
-  <div class="container px-3">
-    <div class="w-100 border-top border-light">
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-
-        <ul class="navbar-nav mr-auto">
+      <div class="container px-3">
+        <div class="w-100 border-top border-light">
+          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
               <li class="nav-item {% if request.get_full_path == "/" %} active {% endif %}">
                 <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
               </li>
-
-          {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-          {% else %}
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-          </li>
-          {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="#">Entertainment</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Business</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Lifestyle</a>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle {% if request.get_full_path == "/add_post/" %} active {% endif %}" href="#" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-            <div class="dropdown-menu" aria-labelledby="adminDropdown">
-              <a class="dropdown-item" href="{% url 'add_post' %}">Create New Post</a>
-            </div>
-          </li>
-          {% endif %}
-        </ul>
-        <form class="form-inline position-relative my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="search-button" type="submit" style><i class="fas fa-search"></i></button>
-        </form>
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">Politics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Entertainment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Business</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Lifestyle</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle {% if request.get_full_path == "/add_post/" %} active {% endif %}" href="#" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                  <a class="dropdown-item" href="{% url 'add_post' %}">Create New Post</a>
+                </div>
+              </li>
+              {% endif %}
+            </ul>
+            <form class="form-inline position-relative my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+              <button class="search-button" type="submit" style><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</nav>
-{% block content %}
-{% endblock %}
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script></body>
+    </nav>
+  {% block content %}
+  {% endblock %}
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script></body>
 </html>
