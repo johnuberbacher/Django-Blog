@@ -12,7 +12,7 @@
       <div class="position-relative d-block">
         <a href="{% url 'article_detail' post.pk %}" class="widget-img" style="background: url(https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
         </a>
-        <a href="#" class="badge badge-primary position-absolute m-0" style="left: 1rem; bottom: 1rem;">{{ post.category }}</a>
+        <a href="{% url 'category' post.category %}" class="badge badge-primary position-absolute m-0" style="left: 1rem; bottom: 1rem;">{{ post.category }}</a>
         </div>
       <div class="widget-body">
         <a href="{% url 'article_detail' post.pk %}" class="widget-title">{{ post.title }}</a>

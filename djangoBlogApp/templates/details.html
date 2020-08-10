@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-12 col-md-7 col-lg-8 my-3">
       <div class="article-card">
-        <a href="#" class="badge badge-primary">{{ post.category }}</a>
+        <a href="{% url 'category' post.category %}" class="badge badge-primary">{{ post.category }}</a>
         <h1>{{ post.title }}</h1>
         <div class="widget-meta">
           <div class="d-flex flex-row">

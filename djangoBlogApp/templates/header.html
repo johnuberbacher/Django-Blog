@@ -183,11 +183,20 @@
         align-items: center;
         justify-content: center;
       }
+      @media (min-width: 768px) {
+        .navbar-expand-md .navbar-nav {
+          width: 100%;
+          justify-content: space-between;
+        }
+      }
       .badge {
         padding: 0.35rem 0.75rem;
         margin-bottom: 1rem;
         font-size: 0.66rem;
         border-radius: 0;
+      }
+      .trending-items {
+
       }
     </style>
   </head>
@@ -217,10 +226,30 @@
               <li class="nav-item {% if request.get_full_path == "/" %} active {% endif %}">
                 <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Politics">Politics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Sports">Sports</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Entertainment">Entertainment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Business">Business</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/lifestyle">Lifestyle</a>
+              </li>
               {% if user.is_authenticated %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle {% if request.get_full_path == "/add_post/" %} active {% endif %}" href="#" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                  <a class="dropdown-item" href="{% url 'add_post' %}">Create New Post</a>
+                  <a class="dropdown-item" href="{% url 'add_category' %}">Create New Category</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                </div>
+              </li>
               {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'register' %}">Register</a>
@@ -229,29 +258,9 @@
                 <a class="nav-link" href="{% url 'login' %}">Login</a>
               </li>
               {% endif %}
-              <li class="nav-item">
-                <a class="nav-link" href="#">Politics</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Entertainment</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Business</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Lifestyle</a>
-              </li>
-              {% if user.is_authenticated %}
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle {% if request.get_full_path == "/add_post/" %} active {% endif %}" href="#" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-                <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                  <a class="dropdown-item" href="{% url 'add_post' %}">Create New Post</a>
-                </div>
-              </li>
-              {% endif %}
             </ul>
-            <form class="form-inline position-relative my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <form class="form-inline position-relative my-2 my-lg-0 ml-md-2 ml-lg-3 ml-xl-4">
+              <input class="form-control w-100" type="text" placeholder="Search" aria-label="Search">
               <button class="search-button" type="submit" style><i class="fas fa-search"></i></button>
             </form>
           </div>

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
-from .models import Category
+from .models import Post, Category
 from .forms import PostForm, UpdatePostForm
 from django.urls import reverse_lazy
 
@@ -39,3 +38,7 @@ class AddCategoryView(CreateView):
     model = Category
     template_name = 'add_category.html'
     fields = '__all__'
+
+def CategoryView(request, categories):
+    category_posts = Post.objects.filter(category=categories)
+    return render(request, 'categories.html', {'categories': categories.title(), 'category_posts': category_posts})
