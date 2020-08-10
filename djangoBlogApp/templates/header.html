@@ -23,6 +23,11 @@
         color: #444444;
         font-family: 'Open Sans';
       }
+      media (min-width: 1200px)
+        .container, .container-lg, .container-md, .container-sm, .container-xl {
+            max-width: 1140px;
+        }
+    }
       .shadow {
         box-shadow: 0 .05rem 0.75rem rgba(0,0,0,.05)!important;
       }
@@ -132,9 +137,9 @@
       .widget-card .widget-img {
          height: 200px;
          display: block;
-         background-size: cover;
-         background-repeat: no-repeat;
-         background-position: center 40%;
+         background-size: cover!important;
+         background-repeat: no-repeatcover!important;
+         background-position: center 40%cover!important;
          transition: 0.4s opacity;
       }
       .widget-card .widget-img:hover {
@@ -195,8 +200,45 @@
         font-size: 0.66rem;
         border-radius: 0;
       }
-      .trending-items {
 
+      .spotlight-bg-img {
+        min-height: 250px;
+        position: relative;
+        background-position: center 40%!important;
+        background-size: cover!important;
+        background-repeat: no-repeat!important;
+      }
+      .spotlight-bg-img .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: black;
+        opacity: 0.35;
+        z-index: 2;
+        transition: 0.3s opacity;
+      }
+      .spotlight-bg-img:hover .overlay {
+        opacity: 0.5
+      }
+      .spotlight-bg-img .spotlight-body {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        right: 1.5rem;
+        z-index: 3;
+        color: white;
+      }
+      .spotlight-bg-img .spotlight-title {
+        color: white;
+        display: block;
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.15;
+      }
+      .trending-items {
+        margin-bottom: 1rem;
       }
     </style>
   </head>
@@ -212,9 +254,9 @@
             Placeholder Tagline
           </div>
         </a>
-        <div class="w-100 bg-light p-4 ml-5 d-none d-md-flex text-center align-items-center justify-content-center font-weight-bold small" style="max-width: 500px; min-height: 70px;">
-          AD
-        </div>
+
+        <img src="https://via.placeholder.com/500x70" class="img-fluid ml-5 d-none d-md-block" />
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -239,7 +281,7 @@
                 <a class="nav-link" href="/Business">Business</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/lifestyle">Lifestyle</a>
+                <a class="nav-link" href="/Lifestyle">Lifestyle</a>
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item dropdown">

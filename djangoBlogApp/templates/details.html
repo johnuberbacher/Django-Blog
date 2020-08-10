@@ -23,7 +23,7 @@
         <hr class="my-4 ">
         <p class="lead mb-0">{{ post.title_tag }}</p>
       </div>
-      <div class="article-img" style="background: url(https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+      <div class="article-img" style="background: url({% if post.post_image %}{{ post.post_image.url }}{% else %}https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500{% endif %});">
         {% if user.is_authenticated %}
           <a class="btn btn-danger article-delete-post-btn" href="{% url 'delete_post' post.pk %}"><i class="fas fa-times"></i></a>
           <a class="btn btn-primary article-edit-post-btn" href="{% url 'update_post' post.pk %}">Edit Post</a>
@@ -31,7 +31,7 @@
       </div>
       <div class="article-card">
         <p>
-          {{ post.body }}
+          {{ post.body|safe }}
         </p>
         <hr class="my-5">
         <div class="references">
@@ -43,7 +43,39 @@
         <a class="mt-4 mb-2 d-inline-block small" href="{% url 'home' %}">Return Home&nbsp;&nbsp;<i class="fas fa-chevron-right small"></i></a>
       </div>
       <div class="col-12 col-md-5 col-lg-4 my-3">
-        {% include "widget_roll.html" %}
+          <img src="https://via.placeholder.com/300x200" class="img-fluid w-100 mb-4" />
+          {% for related_model in category_posts %}
+          {% if not forloop.first %}
+            {{ field }}
+            <div class="col-12 col-lg-6">
+              <div class="widget-card">
+                {% if user.is_authenticated %}
+                  <a class="btn btn-danger widget-delete-post-btn" href="{% url 'delete_post' post.pk %}"><i class="fas fa-times"></i></a>
+                  <a class="btn btn-primary widget-edit-post-btn" href="{% url 'update_post' post.pk %}">Edit Post</a>
+                {% endif %}
+                <div class="position-relative d-block">
+                  <a href="{% url 'article_detail' post.pk %}" class="widget-img" style="background: url(https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                  </a>
+                  <a href="{% url 'category' post.category %}" class="badge badge-primary position-absolute m-0" style="left: 1rem; bottom: 1rem;">{{ post.category }}</a>
+                </div>
+                <div class="widget-body">
+                  <a href="{% url 'article_detail' post.pk %}" class="widget-title">{{ related_model.title }}</a>
+                  <div class="widget-meta">
+                    <div>
+                      <i class="fas fa-user text-primary mr-2"></i>{{ related_model.author}} -
+                    </div>
+                    <div class="ml-3">
+                      <i class="fas fa-calendar text-primary mr-2"></i>{{ related_model.post_date }}
+                    </div>
+                  </div>
+                  <div class="widget-preview">
+                    {{ related_model.body|slice:":100" }}
+                  </div>
+                </div>
+              </div><!-- /.widget-card -->
+            </div><!-- /.col -->
+            {% endif %}
+          {% endfor %}
       </div>
     </div>
-    {% endblock %}
+    {% endblock content %}

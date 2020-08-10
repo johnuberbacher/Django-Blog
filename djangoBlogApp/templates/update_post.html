@@ -7,6 +7,7 @@
       <div class="article-card">
         <form method="POST">
         {% csrf_token %}
+        {{ form.media }}
         {{ form }}
         <button class="btn btn-primary">Update</button>
         </div>

@@ -1,5 +1,5 @@
 
-{% block content %}
+{% block widget %}
   <div class="bg-white p-4 text-center mb-4 font-weight-bold">
     Related Posts
   </div>
@@ -10,9 +10,9 @@
         <a class="btn btn-primary widget-edit-post-btn" href="{% url 'update_post' post.pk %}">Edit Post</a>
       {% endif %}
       <div class="position-relative d-block">
-        <a href="{% url 'article_detail' post.pk %}" class="widget-img" style="background: url(https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+        <a href="{% url 'article_detail' post.pk %}" class="widget-img" style="background: url({% if post.post_image %}{{ post.post_image.url }}{% else %}https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500{% endif %});">
         </a>
-        <a href="{% url 'category' post.category %}" class="badge badge-primary position-absolute m-0" style="left: 1rem; bottom: 1rem;">{{ post.category }}</a>
+        <a href="{% url 'category' post.category %}" class="badge badge-primary position-absolute m-0" style="left: 1rem; bottom: 1rem;">{{ post.category|slugify|title }}</a>
         </div>
       <div class="widget-body">
         <a href="{% url 'article_detail' post.pk %}" class="widget-title">{{ post.title }}</a>
@@ -25,7 +25,8 @@
           </div>
         </div>
         <div class="widget-preview">
-          {{ post.body|slice:":100" }}
+          {{ post.title_tag|safe|slice:":100" }}
+          <!-- {{ post.body|striptags|slice:":100" }} -->
           </div>
       </div>
     </div>

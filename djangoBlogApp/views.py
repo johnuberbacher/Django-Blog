@@ -29,16 +29,11 @@ class DeletePostView(DeleteView):
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
 
-class PostWidgetRollView(ListView):
-    model = Post
-    template_name = 'widget_roll.html'
-    ordering = ['-id']
-
 class AddCategoryView(CreateView):
     model = Category
     template_name = 'add_category.html'
     fields = '__all__'
 
 def CategoryView(request, categories):
-    category_posts = Post.objects.filter(category=categories)
-    return render(request, 'categories.html', {'categories': categories.title(), 'category_posts': category_posts})
+    category_posts = Post.objects.filter(category=categories.replace('-',' '))
+    return render(request, 'categories.html', {'categories': categories.title().replace('-', ' '), 'category_posts': category_posts})
