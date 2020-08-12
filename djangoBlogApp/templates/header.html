@@ -103,7 +103,8 @@
       .widget-card .widget-title {
         font-weight: bold;
       }
-
+      .spotlight-bg-img .widget-delete-post-btn,
+      .spotlight-bg-img .widget-edit-post-btn,
       .article-delete-post-btn,
       .widget-card .widget-delete-post-btn,
       .article-edit-post-btn,
@@ -118,6 +119,7 @@
         border-radius: 0.25rem;
         font-size: 0.75rem;
       }
+      .spotlight-bg-img .widget-delete-post-btn,
       .article-delete-post-btn,
       .widget-card .widget-delete-post-btn {
         left: 0.5rem;
@@ -138,18 +140,33 @@
          height: 200px;
          display: block;
          background-size: cover!important;
-         background-repeat: no-repeatcover!important;
-         background-position: center 40%cover!important;
+         background-repeat: no-repeat!important;
+         background-position: center 40%!important;
          transition: 0.4s opacity;
       }
       .widget-card .widget-img:hover {
         opacity: 0.75;
       }
 
-      .navbar.navbar-global .form-control {
+      .form-control {
         border-radius: 1000rem;
         font-size: 0.8rem;
         padding: .75rem 1rem
+      }
+      .form-group .floating-button {
+        background: transparent;
+        border: transparent;
+        color: var(--secondary);
+        width: 33px;
+        height: 33px;
+        display: flex;
+        font-size: 0.8rem;
+        position: absolute;
+        right: 0.66rem;
+        top: 0;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
       }
       .navbar.navbar-global .nav-link {
         font-weight: bold;
@@ -173,7 +190,7 @@
       .navbar.navbar-global .nav-item .nav-link.active {
         border-bottom: 3px solid var(--primary);
       }
-      .navbar.navbar-global .search-button {
+      .navbar.navbar-global .floating-button {
         background: transparent;
         border: transparent;
         color: var(--secondary);
@@ -202,6 +219,7 @@
       }
 
       .spotlight-bg-img {
+        display: block;
         min-height: 250px;
         position: relative;
         background-position: center 40%!important;
@@ -245,7 +263,25 @@
   <body>
     <nav class="navbar navbar-global navbar-expand-md navbar-light bg-white mb-4 flex-column p-0 sticky-top shadow">
       <div class="pre-navbar bg-dark w-100">
-        Test
+      <ul class="navbar-nav justify-content-end">
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle py-2 text-white {% if request.get_full_path == "/add_post/" %} active {% endif %}" href="#" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+          <div class="dropdown-menu" style="right:0; left: auto;" aria-labelledby="adminDropdown">
+            <a class="dropdown-item" href="{% url 'add_post' %}">Create New Post</a>
+            <a class="dropdown-item" href="{% url 'add_category' %}">Create New Category</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+          </div>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link py-2 text-white" href="{% url 'register' %}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link py-2 text-white" href="{% url 'login' %}">Login</a>
+        </li>
+        {% endif %}
+      </ul>
       </div>
       <div class="container px-3">
         <a class="navbar-brand py-3 font-weight-bold" href="{% url 'home' %}" style="font-size: 2rem; letter-spacing: -0.5px;" href="#">
@@ -264,11 +300,11 @@
       <div class="container px-3">
         <div class="w-100 border-top border-light">
           <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-lg-5">
               <li class="nav-item {% if request.get_full_path == "/" %} active {% endif %}">
                 <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {% if request.get_full_path == "/Politics/" %} active {% endif %}">
                 <a class="nav-link" href="/Politics">Politics</a>
               </li>
               <li class="nav-item">
@@ -283,27 +319,10 @@
               <li class="nav-item">
                 <a class="nav-link" href="/Lifestyle">Lifestyle</a>
               </li>
-              {% if user.is_authenticated %}
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle {% if request.get_full_path == "/add_post/" %} active {% endif %}" href="#" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-                <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                  <a class="dropdown-item" href="{% url 'add_post' %}">Create New Post</a>
-                  <a class="dropdown-item" href="{% url 'add_category' %}">Create New Category</a>
-                  <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                </div>
-              </li>
-              {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}">Register</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
-              </li>
-              {% endif %}
             </ul>
-            <form class="form-inline position-relative my-2 my-lg-0 ml-md-2 ml-lg-3 ml-xl-4">
+            <form class="form-inline position-relative my-2 my-lg-0 ml-md-4">
               <input class="form-control w-100" type="text" placeholder="Search" aria-label="Search">
-              <button class="search-button" type="submit" style><i class="fas fa-search"></i></button>
+              <button class="floating-button" type="submit" style><i class="fas fa-search"></i></button>
             </form>
           </div>
         </div>

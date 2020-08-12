@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-12 my-3 mx-auto" style="max-width: 768px;">
       <div class="article-card">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.media }}
         {{ form }}

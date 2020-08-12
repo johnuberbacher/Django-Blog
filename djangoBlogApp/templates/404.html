@@ -1,3 +1,17 @@
-{% extends 'add_post.html' %}
-
-<h1>Whoops</h1>
+{% block pagenotfound %}
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-12 my-3 mx-auto" style="max-width: 550px;">
+        <div class="article-card text-center py-5">
+        <div class="w-100 py-5">
+          <h1 class="display-2 mb-4 font-weight-bold" style="letter-spacing: 5px;">4<i class="far fa-surprise" style="font-size: 85%"></i>4</h1>
+          <p class="mb-5">
+            The page you're looking for was moved or doesn't exist. Let's get you back.
+            </p>
+            <a href="#" class="btn btn-primary">Back to Home</a>
+          </div>
+          </div>
+        </div>
+    </div>
+  </main>
+{% endblock %}

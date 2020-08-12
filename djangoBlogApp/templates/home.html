@@ -1,43 +1,49 @@
 {% extends 'header.html' %}
 
 {% block content %}
-<div class="container mb-3">
-  <div class="d-flex flex-column flex-md-row align-items-start align-items-center">
-    <div class="bg-primary d-block d-md-inline-block text-white py-2 px-3 font-weight-bold small my-2 mr-3">
-      TRENDING NOW
-    </div>
-    <a href="#" class="small">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </a>
-  </div>
-</div>
+{% block trending %}
+  {% include "trending.html" %}
+{% endblock %}
 <main role="main" class="container">
-  {% block trending %}
-    {% include "trending.html" %}
-  {% endblock %}
-  <div class="row mt-2">
-    <div class="col-12 col-md-6 col-lg-8 my-3">
-      <div class="article-card">
-        <h1>I'm being loaded dynamically!</h1>
-        <div class="author">
-          By John Uberbacher - 01/01/2015
-          </div>
-        <div class="widget-img" style="background: url(https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);"></div>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus purus in massa tempor nec feugiat nisl. Massa sapien faucibus et molestie. Sagittis aliquam malesuada bibendum arcu. Sit amet purus gravida quis blandit turpis. Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque. Netus et malesuada fames ac turpis egestas. Vitae auctor eu augue ut lectus arcu bibendum at varius. </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus purus in massa tempor nec feugiat nisl. Massa sapien faucibus et molestie. Sagittis aliquam malesuada bibendum arcu. Sit amet purus gravida quis blandit turpis. Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque. Netus et malesuada fames ac turpis egestas. Vitae auctor eu augue ut lectus arcu bibendum at varius. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Neque egestas congue quisque egestas diam in arcu cursus euismod. Blandit libero volutpat sed cras ornare. Ut placerat orci nulla pellentesque dignissim enim sit. Dignissim diam quis enim lobortis scelerisque fermentum. Semper risus in hendrerit gravida rutrum quisque non tellus. Pellentesque habitant morbi tristique senectus et. Nunc scelerisque viverra mauris in aliquam sem fringilla ut. Egestas sed tempus urna et pharetra. Et malesuada fames ac turpis egestas maecenas. Nec nam aliquam sem et tortor consequat id porta.</p>
-        <p>Neque egestas congue quisque egestas diam in arcu cursus euismod. Blandit libero volutpat sed cras ornare. Ut placerat orci nulla pellentesque dignissim enim sit. Dignissim diam quis enim lobortis scelerisque fermentum. Semper risus in hendrerit gravida rutrum quisque non tellus. Pellentesque habitant morbi tristique senectus et. Nunc scelerisque viverra mauris in aliquam sem fringilla ut. Egestas sed tempus urna et pharetra. Et malesuada fames ac turpis egestas maecenas. Nec nam aliquam sem et tortor consequat id porta.</p>
+<div class="d-flex flex-column flex-md-row align-items-start align-items-center">
+  <div class="bg-primary d-block d-md-inline-block text-white py-2 px-3 font-weight-bold small my-2 mr-3">
+    TRENDING NOW
+  </div>
+  <a href="#" class="small">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  </a>
+</div>
+  <div class="card-columns mt-4">
+      {% for post in object_list %}
+          <div class="widget-card d-inline-block w-100">
+            {% if user.is_authenticated %}
+              <a class="btn btn-danger widget-delete-post-btn" href="{% url 'delete_post' post.pk %}"><i class="fas fa-times"></i></a>
+              <a class="btn btn-primary widget-edit-post-btn" href="{% url 'update_post' post.pk %}">Edit Post</a>
+            {% endif %}
+            <div class="position-relative d-block">
+              <a href="{% url 'article_detail' post.pk %}" class="widget-img" style="background: url({% if post.post_image %}{{ post.post_image.url }}{% else %}https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500{% endif %});">
+              </a>
+              <a href="{% url 'category' post.category %}" class="badge badge-primary position-absolute m-0" style="left: 1rem; bottom: 1rem;">{{ post.category|slugify|title }}</a>
+              </div>
+            <div class="widget-body">
+              <a href="{% url 'article_detail' post.pk %}" class="widget-title">{{ post.title }}</a>
+              <div class="widget-meta">
+                <div>
+                  <i class="fas fa-user text-primary mr-2"></i>{{ post.author}} -
+                </div>
+                <div class="ml-3">
+                  <i class="fas fa-calendar text-primary mr-2"></i>{{ post.post_date }}
+                </div>
+              </div>
+              <div class="widget-preview">
+                {{ post.title_tag|safe|slice:":100" }}
+                <!-- {{ post.body|striptags|slice:":100" }} -->
+                </div>
 
-        <div class="references">
-          <a href="#">Neque egestas congue quisque egestas diam in arcu cursus euismod. </a>
-            <a href="#">Neque egestas congue quisque egestas diam in arcu cursus euismod. </a>
-              <a href="#">Neque egestas congue quisque egestas diam in arcu cursus euismod. </a>
           </div>
         </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 my-3">
-        {% include "widget_roll.html" %}
-      </div>
+      {% endfor %}
     </div>
-    </main><!-- /.container -->
+  </main><!-- /.container -->
 
 {% endblock %}

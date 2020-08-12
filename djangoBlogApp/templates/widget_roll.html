@@ -1,8 +1,4 @@
-
 {% block widget %}
-  <div class="bg-white p-4 text-center mb-4 font-weight-bold">
-    Related Posts
-  </div>
   {% for post in object_list %}
     <div class="widget-card">
       {% if user.is_authenticated %}
