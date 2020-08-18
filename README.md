@@ -31,6 +31,12 @@ Create virtual enviornment and install dependendies
 Activate virtual environment with [[virtualenvironmentpath]]\Scripts\Activate
 python manage.py runserver
 
+## Dependent Libraries & Packages
+
+ckeditor
+ckeditor_uploader
+Pillow
+
 ## Release History
 
 * 0.0.1
