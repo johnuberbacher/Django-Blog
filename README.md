@@ -34,7 +34,9 @@ python manage.py runserver
 ## Dependent Libraries & Packages
 
 ckeditor
+
 ckeditor_uploader
+
 Pillow
 
 ## Release History
